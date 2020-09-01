@@ -21,10 +21,10 @@ class Common
     protected static $domain = "https://rpc.cnblogs.com/metaweblog/";
 
     /**
-     * @var string $addressName 博客地址名
+     * @var string $addressName 博客地址名，根据自己实际情况修改
      * 在设置页面下可以查看和修改 https://i.cnblogs.com/settings
      */
-    protected static $addressName = "";
+    protected static $addressName = "lantor";
 
     /**
      * 返回成功的结果
@@ -63,6 +63,9 @@ class Common
     {
         // 客户端连接rpc地址
         $client = new Client(self::$domain . self::$addressName);
+        // 是否使用curl，如果使用curl报以下错误可以禁用，或者配置php.ini
+        // CURL error: SSL certificate problem: unable to get local issuer certificate
+        $client->setUseCurl(1);
         // 组织请求体
         $request = new Request($method, $data);
         // 返回响应对象

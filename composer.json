@@ -1,7 +1,8 @@
 {
   "require": {
     "phpxmlrpc/phpxmlrpc": "^4.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-mbstring": "*"
   },
   "autoload": {
     "psr-4": {
