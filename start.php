@@ -27,6 +27,7 @@ if (class_exists($class_name)) {
     if (method_exists($class_name, $method_name)) {
         // 有返回值取返回值，没有返回值按输出
         $result = call_user_func(array($class_name, $method_name));
+
         if (empty($result)) {
             $result = array(
                 'code' => 0,
