@@ -57,10 +57,8 @@ class Utils
         switch (strtoupper($data[0])) {
             case 'GET':
                 return self::parseGet(isset($data[1]) ? $data[1] : '', $default);
-                break;
             case 'POST':
                 return self::parsePost(isset($data[1]) ? $data[1] : '', $default);
-                break;
             default:
                 return $default;
         }

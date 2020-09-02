@@ -2,7 +2,7 @@
 // 输出json字符串
 header('Content-Type: application/json;charset=utf-8');
 // 不输出任何错误信息
-error_reporting(0);
+error_reporting(E_ALL);
 // 自动加载
 require_once __DIR__ . '/vendor/autoload.php';
 // 请求路径，去除两边 /，需配置 url rewrite 规则
@@ -19,8 +19,8 @@ $path_info = explode('/', $uri);
 $class = ucfirst($path_info[0]);
 // 完整类名
 $class_name = 'app\\' . ($class ?: 'Index');
-// 判断类是否存在
-if (class_exists($class_name)) {
+// 判断类是否存在，且仅允许指定的类
+if (class_exists($class_name) && in_array($class, array('Blogger', 'MetaWeblog', 'Wp'))) {
     // 判断方法是否存在
     $method_name = isset($path_info[1]) ? $path_info[1] : 'index';
     // 方法是否存在

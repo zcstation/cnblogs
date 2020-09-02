@@ -14,14 +14,15 @@ use PhpXmlRpc\Value;
 class Blogger extends Common
 {
     /**
-     * 获取用户博客信息，如博客名称，blogid，url
+     * Returns information on all the blogs a given user is a member.
+     * 返回给定用户是成员的所有博客上的信息。
      * @return array
      */
     public static function getUsersBlogs()
     {
         $response = self::getResponse('blogger.getUsersBlogs', array(
             // appKey 暂时可以填空值，但是该参数要有
-            'appKey' => new Value(Utils::input('post.appKey', ''), 'string'),
+            'appKey' => new Value(self::$appKey, 'string'),
             // 登录用户名
             'username' => new Value(Utils::input('post.username'), 'string'),
             // 密码
