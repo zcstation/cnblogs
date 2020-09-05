@@ -20,35 +20,32 @@ class Blogger extends Common
      */
     public static function getUsersBlogs()
     {
-        $response = self::getResponse('blogger.getUsersBlogs', array(
+        $data = self::getResponseData('blogger.getUsersBlogs', array(), array(
             // appKey 暂时可以填空值，但是该参数要有
             'appKey' => new Value(self::$appKey, 'string'),
-            // 登录用户名
-            'username' => new Value(Utils::input('post.username'), 'string'),
-            // 密码
-            'password' => new Value(Utils::input('post.password'), 'string')
         ));
 
-        if ($response->faultCode() != 0) {
-            return self::error($response->faultString());
+        if (isset($data['data']) && isset($data['data'][0])) {
+            return self::success($data['data'][0]);
         }
 
-        $data = array();
-
-        foreach ($response->value() as $datum) {
-            /**
-             * @var Value $item
-             */
-            foreach ($datum as $key => $item) {
-                $data[$key] = $item->scalarval();
-            }
-        }
-
-        return self::success($data);
+        return $data;
     }
 
+    /**
+     * 删除一篇博客
+     * @return array
+     */
     public static function deletePost()
     {
-
+        return self::getResponseData('blogger.deletePost', array(
+            // 在适用的情况下，指定在文章被删除后是否应该重新发布博客
+            'publish' => new Value(Utils::input('post.publish', false), 'boolean')
+        ), array(
+            // appKey 暂时可以填空值，但是该参数要有
+            'appKey' => new Value(self::$appKey, 'string'),
+            // 要删除的文章id
+            'postid' => new Value(Utils::input('post.postid'), 'string'),
+        ));
     }
 }

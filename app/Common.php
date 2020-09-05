@@ -105,9 +105,10 @@ class Common
      * @param string $method 方法
      * @param array $other 其他参数
      * @param array $base 基础参数
+     * @param string $blogIdName 博客id的键名
      * @return array
      */
-    protected static function getResponseData($method, $other = array(), $base = array())
+    protected static function getResponseData($method, $other = array(), $base = array(), $blogIdName = 'blogid')
     {
         if (empty($base)) {
             // 没有指定基础参数则传递blogid参数
@@ -118,7 +119,7 @@ class Common
             }
 
             $base = array(
-                'blogid' => new Value($blogData['data']['blogid'], 'string'),
+                $blogIdName => new Value($blogData['data']['blogid'], 'string'),
             );
         }
         // 必须的参数

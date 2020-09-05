@@ -13,10 +13,31 @@ use PhpXmlRpc\Value;
  */
 class MetaWeblog extends Common
 {
-
+    /**
+     * 编辑随笔
+     * @return array
+     */
     public static function editPost()
     {
-
+        return self::getResponseData('metaWeblog.newPost', array(
+            'post' => new Value(array(
+                'dateCreated' => new Value(date('Ymd\TH:i:s'), 'dateTime'),
+                'description' => new Value(Utils::input('post.description'), 'string'),
+                'title' => new Value(Utils::input('post.title'), 'string'),
+                'categories' => new Value(Utils::input('post.categories', array()), 'array'),
+                // 附件暂时不要了，web端没见有地方设置
+                //'enclosure' => new Value(Utils::input('post.enclosure', array()), 'struct')
+                //'link' => new Value(Utils::input('post.link'), 'string'),
+                // 永久链接
+                //'permalink' => new Value(Utils::input('post.permalink'), 'string')
+                'postid' => new Value(Utils::input('post.postid'), 'string'),
+                //'source' => new Value(Utils::input('post.source', array()), 'struct'),
+                //'userid' => new Value(Utils::input('post.userid'), 'string')
+            ), 'struct'),
+            'publish' => new Value(Utils::input('post.publish', 1), 'boolean')
+        ), array(
+            'postid' => new Value(Utils::input('post.postid'), 'string')
+        ));
     }
 
     /**
@@ -29,9 +50,29 @@ class MetaWeblog extends Common
         return self::getResponseData('metaWeblog.getCategories');
     }
 
+    /**
+     * 发表新的博客
+     * @return array
+     */
     public static function newPost()
     {
-
+        return self::getResponseData('metaWeblog.newPost', array(
+            'post' => new Value(array(
+                'dateCreated' => new Value(date('Ymd\TH:i:s'), 'dateTime'),
+                'description' => new Value(Utils::input('post.description'), 'string'),
+                'title' => new Value(Utils::input('post.title'), 'string'),
+                'categories' => new Value(Utils::input('post.categories', array()), 'array'),
+                // 附件暂时不要了，web端没见有地方设置
+                //'enclosure' => new Value(Utils::input('post.enclosure', array()), 'struct')
+                //'link' => new Value(Utils::input('post.link'), 'string'),
+                // 永久链接
+                //'permalink' => new Value(Utils::input('post.permalink'), 'string')
+                //'postid' => new Value(Utils::input('post.postid'), 'string'),
+                //'source' => new Value(Utils::input('post.source', array()), 'struct'),
+                //'userid' => new Value(Utils::input('post.userid'), 'string')
+            ), 'struct'),
+            'publish' => new Value(Utils::input('post.publish', 1), 'boolean')
+        ));
     }
 
     /**
